@@ -43,6 +43,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.uiTooling)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(libs.compose.material.icons.extended)
@@ -69,5 +70,6 @@ kotlin {
 }
 
 dependencies {
+    androidMainImplementation(libs.koin.android)
     androidRuntimeClasspath(libs.compose.uiTooling)
 }
