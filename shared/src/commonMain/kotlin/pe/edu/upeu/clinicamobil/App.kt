@@ -1,49 +1,27 @@
 package pe.edu.upeu.clinicamobil
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import org.jetbrains.compose.resources.painterResource
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
+import pe.edu.upeu.clinicamobil.Presentation.navigation.AppNavigation
+import pe.edu.upeu.clinicamobil.Presentation.Theme.ClinicaMobilTheme
 
-import clinicamobil.shared.generated.resources.Res
-import clinicamobil.shared.generated.resources.compose_multiplatform
-
+/**
+ * Punto de entrada Compose Multiplatform.
+ *
+ * El modo oscuro vive aquí, no en la pantalla, para que el interruptor del
+ * menú y el tema compartan una sola fuente de verdad. En el Ítem 7 se
+ * envolverá con KoinContext.
+ */
 @Composable
-@Preview
 fun App() {
-    MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .background(MaterialTheme.colorScheme.primaryContainer)
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                ) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
-            }
-        }
+    var darkTheme by rememberSaveable { mutableStateOf(false) }
+    ClinicaMobilTheme(darkTheme = darkTheme) {
+        AppNavigation(
+            darkTheme = darkTheme,
+            onDarkThemeChange = { darkTheme = it },
+        )
     }
 }
