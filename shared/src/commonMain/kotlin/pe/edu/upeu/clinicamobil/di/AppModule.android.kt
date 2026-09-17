@@ -1,6 +1,5 @@
 package pe.edu.upeu.clinicamobil.di
 
-import android.content.Context
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
@@ -15,7 +14,12 @@ private fun androidPlatformModule(): Module = module {
     // Sin dependencias específicas por ahora.
 }
 
-/** Helper para que MainApplication no tenga que saber de Koin. */
-fun initKoinAndroid(applicationContext: Context) {
+/**
+ * Arranca Koin desde Android.
+ *
+ * No recibe Context porque la app todavía no usa dependencias que lo
+ * requieran. Cuando se agregue SharedPreferences, se le volverá a pasar.
+ */
+fun initKoinAndroid() {
     initKoin(platformModule = androidPlatformModule())
 }
